@@ -23,6 +23,8 @@ class User extends Authenticatable
         'password',
     ];
 
+    // protected $appends = ['realName'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -43,7 +45,21 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function blogs() {
+    // public function getUsernameAttribute($value) {
+    //     return ucfirst($value);
+    // }
+
+    // public function getRealNameAttribute() {
+    //     return $this->name . ' ' . $this->username;
+    // }
+
+    // public function setPasswordAttribute($value) {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
+
+
+    public function blogs()
+    {
         return $this->hasMany(Blog::class);
     }
 }
