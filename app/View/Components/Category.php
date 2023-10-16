@@ -22,8 +22,13 @@ class Category extends Component
      */
     public function render(): View|Closure|string
     {
+        $currentCategory = '';
+        if (request('category')) {
+            $currentCategory = ModelsCategory::whereSlug(request('category'))->first()->name;
+        }
         return view('components.category', [
-            'categories' => ModelsCategory::all()
+            'categories' => ModelsCategory::all(),
+            'currentCategory' => $currentCategory
         ]);
     }
 }

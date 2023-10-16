@@ -4,8 +4,8 @@
         <div class="d-flex">
             <a href="/" class="nav-link">Home</a>
             <a href="/#blogs" class="nav-link">Blogs</a>
-            <a href="#subscribe" class="nav-link">Subscribe</a>
             @if(auth()->check())
+            <a href="#subscribe" class="nav-link">Subscribe</a>
             <a href="" class="nav-link">
                 {{auth()->user()->name}}
             </a>

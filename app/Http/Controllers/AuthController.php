@@ -20,18 +20,15 @@ class AuthController extends Controller
             'password' => ['required', 'min:8'],
 
         ]);
-        $user = User::whereEmail($cleanData['email'])->first();
-        //Hash::check($cleanData['password'], $user->password)
         if (auth()->attempt([
             'email' => $cleanData['email'],
             'password' => $cleanData['password']
         ])) {
-            auth()->login($user);
-            return redirect('/');
+            return redirect('/')->with('success', 'Welcome back ' . auth()->user()->name);
         } else {
             return redirect('/login')->withErrors([
                 'password' => 'Password is something wrong'
-            ]);
+            ])->withInput();
         }
     }
 
@@ -51,11 +48,14 @@ class AuthController extends Controller
         ], [
             'name.max' => "Not more than 20 characters."
         ]);
+        
+        $cleanData = array_merge($cleanData, ['admin'=> 0]);
+        //  
         $user = User::create($cleanData);
 
         auth()->login($user);
 
-        return redirect('/')->with('success', 'welcome from creativecoder.' . auth()->user()->name);
+        return redirect('/')->with('success', 'Welcome from creativecoder. ' . auth()->user()->name);
     }
 
     public function logout()

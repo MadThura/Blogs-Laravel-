@@ -21,11 +21,13 @@ class BlogController extends Controller
     {
         return view('blogs.show', [
             'blog' => $blog,
-            'randomBlogs' => cache()->remember('blogs.'.$blog->slug, now()->addMinute(2),
+            'randomBlogs' => cache()->remember(
+                'blogs.' . $blog->slug,
+                now()->addMinute(2),
                 function () use ($blog) {
                     return Blog::inRandomOrder()->whereHas('category', function ($query) use ($blog) {
                         $query->where('slug', $blog->category->slug);
-                    })->take(3)->get(); 
+                    })->take(3)->get();
                 }
             )
         ]);
