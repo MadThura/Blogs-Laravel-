@@ -19,6 +19,10 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
     public static function scopeFilter($blogsQuery, $filters = [])
     {
         if ($search = $filters['search'] ?? null) {

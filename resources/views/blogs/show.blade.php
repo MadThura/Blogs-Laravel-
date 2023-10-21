@@ -19,6 +19,7 @@
             </div>
         </div>
     </div>
+    <x-comment_section :blog="$blog"/>
 
     <x-subscribe />
     <x-blogs_you_may_like_section :randomBlogs="$randomBlogs" />

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Comment;
 
 class BlogController extends Controller
 {
@@ -29,7 +30,9 @@ class BlogController extends Controller
                         $query->where('slug', $blog->category->slug);
                     })->take(3)->get();
                 }
-            )
+            ),
+            // dd(Comment::all()),
+            'comments' => Comment::all(),
         ]);
     }
 }
