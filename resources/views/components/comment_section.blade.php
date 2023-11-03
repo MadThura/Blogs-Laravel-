@@ -1,5 +1,5 @@
 @php
-    $comments = $blog->comments()->latest()->paginate(4);
+$comments = $blog->comments()->latest()->paginate(4);
 @endphp
 <div class="row d-flex justify-content-center">
     <div class="col-md-8 col-lg-6">
@@ -15,7 +15,6 @@
                         <input type="submit" value="Submit" class="btn btn-primary mt-1">
                     </form>
                 </div>
-
                 @foreach ($comments as $comment)
                 <div class="card mb-4">
                     <div class="card-body">
@@ -27,6 +26,14 @@
                             <div>{{$comment->created_at->format('D-M-Y')}}</div>
                         </div>
                         <p>{{$comment->body}}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="/blogs/{{$blog->slug}}/comments/{{$comment->id}}/edit" class="btn btn-warning">Edit</a>
+                            <form action="/blogs/{{$blog->slug}}/comments/{{$comment->id}}" method="POST">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 @endforeach
